@@ -10,6 +10,7 @@ title %appn% v%appv% - %appv%
 powershell -Command "(New-Object Net.WebClient).DownloadFile('https://raw.githubusercontent.com/baikil/VBU/main/version.vbuf', 'version.vbuf')"
 for /f "tokens=*" %%A in (version.vbuf) do (set "version=%%A")
 if not %appv%==%version% goto update
+del version.vbuf
 
 :verif2
 if exist settings.vbuf goto menu
