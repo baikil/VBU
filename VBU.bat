@@ -21,12 +21,25 @@ set /p lang=
 echo %lang%>settings.vbuf
 
 :menu
+cls
 type settings.vbuf
+call :readline test.txt 3
+echo %output%
 pause
 exit
 
+:readline
+set "file=%1"
+set "line=%2"
+
+set "output="
+set /a skip = %line% - 1
+for /F "skip=2 delims=" %%i in (%file%) do if not defined output set "output=%%i"
+exit /b
+
 :download
 powershell -Command "(New-Object Net.WebClient).DownloadFile('%1', '%2')"
+exit /b
 
 :update
 powershell -Command "(New-Object Net.WebClient).DownloadFile('https://raw.githubusercontent.com/baikil/VBU/main/VBU.bat', 'VBU.bat')"
