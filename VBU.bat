@@ -55,9 +55,9 @@ exit
 :readline
 set "file=%1"
 set "line=%2"
-set "output="
+set "readline="
 set /a s=%line% - 1
-for /F "skip=%s% delims=" %%i in (%file%) do if not defined %output% set "output=%%i"
+for /F "skip=%s% delims=" %%i in (%file%) do if not defined readline set "readline=%%i"
 exit /b
 :download
 powershell -Command "(New-Object Net.WebClient).DownloadFile('%1', '%2')"
@@ -98,3 +98,16 @@ set /p "userinput="
 call :download %rawurl%%userinput%.bat %userinput%.bat
 goto home
 exit /b
+:installiso
+echo Type the name of Iso that you want to download
+echo.
+echo Mac OS:
+echo BigSur11
+echo.
+echo Windows:
+echo Win10
+echo.
+set /p "userinput="
+if %userinput%==BigSur11 call :readline downloadtable.vbuf 3 & call :download %readline% %userinput%.iso
+if %userinput%==Win10 call :readline downloadtable.vbuf 4 & call :download %readline% %userinput%.iso
+goto menu
