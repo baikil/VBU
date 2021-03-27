@@ -1,0 +1,7 @@
+readline
+download
+help
+echo
+setvar
+pluginlist
+installplugin
